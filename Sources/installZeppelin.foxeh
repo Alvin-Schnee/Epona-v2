@@ -1,0 +1,31 @@
+# Fragment Name   : InstallZeppelin
+# Fragment Info   : Downloads and setups Zeppelin, my own custom dotfile manager.
+# Fragment Ver.   : 1.0 (07 Oct. 2021)
+# Fragment Author : Alvin Schnee (FoxehCorp.)
+
+echo -e "$hostname > Installing Zeppelin - "
+echo -ne "$space > Downloading - "
+
+# Check whether the .foxehcorp repository exists. If so, move into it, and clone Zeppelin.
+
+if [ ! -d "/home/$(whoami)/.foxehcorp" ]; then
+    mkdir /home/$(whoami)/.foxehcorp
+fi
+
+cd /home/$(whoami)/.foxehcorp &> /dev/null
+
+git clone https://github.com/Alvin-Schnee/zeppelin.git &> /dev/null
+
+if [ $? -eq 0 ]; then
+    echo -e "${GREEN}done${DEFAULT}."
+    
+    echo -ne "$space > Installing - "
+    sudo mv /home/$(whoami)/.foxehcorp/zeppelin/zeppelin.sh /bin/zeppelin && sudo chmod +x /bin/zeppelin
+    printSuccessOrFailure
+
+    echo -ne "$space > Cleaning install files - "
+    rm -rf /home/$(whoami)/.foxehcorp/zeppelin/.git && rm -f /home/$(whoami)/.foxehcorp/zeppelin/README.md
+    printSuccessOrFailure
+else
+    echo -e "${RED}Failed${DEFAULT}. Skipping."
+fi

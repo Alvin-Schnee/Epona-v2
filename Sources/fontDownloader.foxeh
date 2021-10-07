@@ -1,0 +1,33 @@
+# Fragment Name   : FontDownloader
+# Fragment Info   : Checks whether all useful fonts are correctly installed, downloads and installs them from either official or user repositories otherwise.
+# Fragment Ver.   : 1.0 (07 Oct. 2021)
+# Fragment Author : Alvin Schnee (FoxehCorp.)
+
+echo -ne "$hostname > Downloading required fonts - "
+
+if [ ${#fonts} -eq 0 ] && [ ${#fontsAUR} -eq 0 ] ; then
+    echo -e "${GREEN}Done${DEFAULT}."
+
+else
+
+    echo -ne "\n"
+
+    for font in $fonts
+    do
+        echo -ne "$space > $font - "
+        yes "" | sudo pacman -S $font &> /dev/null
+        printSuccessOrFailure
+    done
+
+    for font in $fontsAUR
+    do
+        echo -ne "$space > $font - "
+        yes "" | sudo -u $(whoami) yay -S $font &> /dev/null
+        printSuccessOrFailure
+    done
+
+fi;
+
+echo -ne "\n"
+
+# End of Fragment

@@ -1,0 +1,2 @@
+1) faire en sorte que Epona lise et execute chaque .foxeh dans /Sources - permet une gestion de plugins modulaire pour l'utilisateur
+2) faire en sorte d'avoir un fichier de presets, pour pouvoir modifier les packages nécessaires et autres infos sans toucher au script

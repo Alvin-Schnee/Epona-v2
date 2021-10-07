@@ -1,0 +1,80 @@
+# Fragment Name   : PackageChecker
+# Fragment Info   : Checks whether all necessary packages are correctly installed, downloads and installs them from official repositories otherwise.
+# Fragment Ver.   : 1.0 (07 Oct. 2021)
+# Fragment Author : Alvin Schnee (FoxehCorp.)
+
+missingPackages=()
+
+
+# For all required packages, check its current installation status. If a package is not installed, add it to the missingPackages list.
+
+echo -ne "$hostname > Checking for required packages - "
+
+if [ ${#requiredPackages} -eq 0 ] ; then
+    echo -e "${GREEN}Done${DEFAULT}."
+
+else
+
+    echo -ne "\n"
+
+    for package in $requiredPackages
+    do
+        check="$(sudo pacman -Qs --color always "${package}" | grep "local" | grep "${package} ")";
+
+        if [ -z "${check}" ] ; then
+            missingPackages+=${package}
+        fi;
+    done
+
+    if [ ${#missingPackages} -eq 0 ] ; then
+        echo -ne "${GREEN}Done${DEFAULT}."
+
+    else
+
+         # Download each missing required package from the official Arch repositories.
+
+        for package in $missingPackages
+        do
+            echo -ne "$space > Downloading $package - "
+            yes "" | sudo pacman -S $package &> /dev/null
+            printSuccessOrFailure
+        done
+
+    fi
+
+fi;
+
+echo -ne "\n"
+
+
+# Now that we've got everything baseline, we can download and install all custom packages.
+
+echo -ne "$hostname > Installing custom packages - "
+
+if [ ${#customPackages} -eq 0 ] && [ ${#customPackagesAUR} -eq 0 ] ; then
+
+    echo -e "${GREEN}Done${DEFAULT}."
+
+else
+
+    echo -ne "\n"
+
+    for customPackage in $customPackages
+    do
+        echo -ne "$space > $customPackage - "
+        yes "" | sudo pacman -S $customPackage &> /dev/null
+        printSuccessOrFailure
+    done
+
+    for customPackage in $customPackagesAUR
+    do
+        echo -ne "$space > $customPackage - "
+        yes "" | sudo -u $(whoami) yay -S $customPackage &> /dev/null
+        printSuccessOrFailure
+    done
+
+fi;
+
+echo -ne "\n"
+
+# End of Fragment
