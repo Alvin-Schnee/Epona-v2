@@ -1,0 +1,23 @@
+# Fragment Name   : WallpaperDownloader
+# Fragment Info   : Downloads an image from a URL and sets it as desktop wallpaper.
+# Fragment Ver.   : 1.0.1 (08 Oct. 2021)
+# Fragment Author : Alvin Schnee (FoxehCorp.)
+
+echo -ne "$hostname > Downloading desktop wallpaper - "
+
+wget $wallpaperURL &> /dev/null
+printSuccessOrFailure
+
+if [ ! -d "/home/$(whoami)/.wallpapers" ]; then
+    mkdir /home/$(whoami)/.wallpapers
+fi
+
+mv *.png "/home/$(whoami)/.wallpapers/wallpaper.png" &> /dev/null
+
+echo -ne "$hostname > Applying wallpaper to desktop - "
+feh --bg-scale "/home/$(whoami)/.wallpapers/wallpaper.png"
+printSuccessOrFailure
+
+echo -ne "\n"
+
+# End of Fragment

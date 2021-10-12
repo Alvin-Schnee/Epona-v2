@@ -1,6 +1,6 @@
 # Fragment Name   : FontDownloader
 # Fragment Info   : Checks whether all useful fonts are correctly installed, downloads and installs them from either official or user repositories otherwise.
-# Fragment Ver.   : 1.0 (07 Oct. 2021)
+# Fragment Ver.   : 1.0.1 (07 Oct. 2021)
 # Fragment Author : Alvin Schnee (FoxehCorp.)
 
 echo -ne "$hostname > Downloading required fonts - "

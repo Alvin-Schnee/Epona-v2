@@ -34,7 +34,11 @@ source .epona
 
 source Sources/header.foxeh
 source Sources/packageChecker.foxeh
-source Sources/fontDownloader.foxeh
-source Sources/installZeppelin.foxeh
+
+for f in Sources/*.foxeh; do
+	if [[ "$f" != "Sources/header.foxeh" && "$f" != "Sources/packageChecker.foxeh" ]]; then
+		source "$f"
+	fi	
+done
 
 ################################################################

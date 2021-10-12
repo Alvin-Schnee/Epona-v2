@@ -1,6 +1,6 @@
 # Fragment Name   : Header
 # Fragment Info   : Holds all default values, useful functions, and initializations routines.
-# Fragment Ver.   : 1.0 (07 Oct. 2021)
+# Fragment Ver.   : 1.0.1 (07 Oct. 2021)
 # Fragment Author : Alvin Schnee (FoxehCorp.)
 
 
@@ -23,6 +23,7 @@ for i in `seq 1 ${#hostname}`; do
     space+=' ' 
 done
 
+SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
 # Declaration of helper functions
 

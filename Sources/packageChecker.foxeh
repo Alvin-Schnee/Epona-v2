@@ -1,6 +1,6 @@
 # Fragment Name   : PackageChecker
 # Fragment Info   : Checks whether all necessary packages are correctly installed, downloads and installs them from official repositories otherwise.
-# Fragment Ver.   : 1.0 (07 Oct. 2021)
+# Fragment Ver.   : 1.0.1 (07 Oct. 2021)
 # Fragment Author : Alvin Schnee (FoxehCorp.)
 
 missingPackages=()
